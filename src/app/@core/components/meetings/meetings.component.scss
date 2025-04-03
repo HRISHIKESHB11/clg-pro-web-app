@@ -13,3 +13,20 @@ video {
 .cursor-pointer{
   cursor: pointer !important;
 }
+
+
+.class-table-container{
+  min-height: 200px;
+  max-height: 200px;
+  min-width: 24%;
+  max-width: 24%;
+  position: relative;
+}
+
+.hover-effect-btn:hover .hover-effect-label {
+  display: block !important;
+}
+
+.hover-effect-label {
+  display: none !important;
+}

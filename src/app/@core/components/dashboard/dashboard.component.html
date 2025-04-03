@@ -12,7 +12,7 @@
     <div class="grid grid-cols-3 gap-3">
       <!-- Intial Screen -->
       <ng-container *ngIf="!meetType">
-        <div class="card bg-base-100 image-full w-96 shadow-xl">
+        <div class="card bg-base-100 image-full w-96 shadow-xl" *ngIf="!isRedirectedDirectJoinMeet">
           <figure>
             <img src="assets/images/dashboard/create_new_meet.png"
               alt="Shoes" />

@@ -3,5 +3,7 @@ export class UserDetail {
   LastName: string = '';
   ConatctNo: string = '';
   MeetJoiningDate: string = '';
-  MeetCode: string = ''
+  MeetCode: string = '';
+  SeatNo: string = '';
+  Gender: string = '';
 }

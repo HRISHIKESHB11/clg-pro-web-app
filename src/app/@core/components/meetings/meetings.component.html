@@ -32,7 +32,7 @@
         <strong style="font-size: 1.5rem;">
           Request
         </strong>
-        <img src="./../../../../assets/images/meeting_menubar_icons/close.png"
+        <img src="assets/images/meeting_menubar_icons/close.png"
           (click)="showRequestList = false"
           style="height: 50px; width: 50px; cursor: pointer;" alt srcset>
       </div>
@@ -52,12 +52,12 @@
             <button type="button" class="btn btn-success"
               (click)="setSeelctedUserDetail(user);">
               <img
-                src="./../../../../assets/images/meeting_menubar_icons/person_check.png"
+                src="assets/images/meeting_menubar_icons/person_check.png"
                 style="height: 30px;" alt srcset>
             </button>
             <!-- <button type="button" class="btn bg-danger">
               <img
-                src="./../../../../assets/images/meeting_menubar_icons/person_cancel.png"
+                src="assets/images/meeting_menubar_icons/person_cancel.png"
                 style="height: 30px;" alt srcset>
             </button> -->
           </div>
@@ -69,7 +69,7 @@
       style="border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;" (click)="showRequestList = true;">
       <img
-        src="./../../../../assets/images/meeting_menubar_icons/person_request.png"
+        src="assets/images/meeting_menubar_icons/person_request.png"
         style="height: 25px; width: 25px;" alt srcset>
       <strong [class]="showRequestList ? '': 'hover-effect-label'">
         Requests
@@ -121,7 +121,7 @@
     z-index: 10;">
     <div class="d-flex align-items-center h-100">
       <img class="card border-0 p-2" (click)="showCandidateList = true;"
-        src="./../../../../assets/images/meeting/person_list.png"
+        src="assets/images/meeting/person_list.png"
         style="height: 60px; width: 60px; border-top-left-radius: 0px; border-bottom-left-radius: 0px; cursor: pointer;"
         alt srcset>
     </div>
@@ -141,7 +141,7 @@
       <strong style="font-size: 1.5rem;">
         Candidate List
       </strong>
-      <img src="./../../../../assets/images/meeting_menubar_icons/close.png"
+      <img src="assets/images/meeting_menubar_icons/close.png"
         (click)="showCandidateList = false"
         style="height: 50px; width: 50px; cursor: pointer;" alt srcset>
     </div>
@@ -215,7 +215,7 @@
               <div style="position: absolute; right: 0; top: 0;">
                 <img (click)="remove_UserFromSeat(i)" *ngIf="user.SeatNo"
                   class="card p-1 border-0 rounded-3 bg-danger"
-                  src="./../../../../assets/images/meeting_menubar_icons/person_remove.png"
+                  src="assets/images/meeting_menubar_icons/person_remove.png"
                   style="height: 40px; width: 40px; cursor: pointer;
                 border-top-left-radius: 0px !important;
                 border-bottom-left-radius: 0px !important;
@@ -227,28 +227,28 @@
                   <div [id]="'seat_'+i"
                     class="d-flex justify-content-center align-content-center">
                     <img
-                      src="./../../../../assets/images/meeting/wooden-chair.png"
+                      src="assets/images/meeting/wooden-chair.png"
                       style="max-height: 100px; max-width: 100px; position: absolute; bottom: 30%;"
                       alt srcset>
                     <img
                       *ngIf="!user.SeatNo && !user.Gender"
                       [id]="'vacant_seat_'+i"
                       [class]="return_BottomStyleBasedOnSeatNo(user.SeatNo)"
-                      src="./../../../../assets/images/meeting/add-user.png"
+                      src="assets/images/meeting/add-user.png"
                       style="max-height: 75px; max-width: 75px; position: absolute; bottom: 20%;"
                       alt srcset>
                     <img
                       *ngIf="user.SeatNo && !user.Gender"
                       [id]="'vacant_seat_'+i"
                       [class]="return_BottomStyleBasedOnSeatNo(user.SeatNo)"
-                      src="./../../../../assets/images/meeting/avatar.png"
+                      src="assets/images/meeting/avatar.png"
                       style="max-height: 75px; max-width: 75px; position: absolute; bottom: 20%;"
                       alt srcset>
                     <ng-container *ngIf="user.Gender">
                       <img [id]="'vacant_seat_'+i"
                         [class]="return_BottomStyleBasedOnSeatNo(user.SeatNo)"
                         *ngIf="user.SeatNo && user.Gender.toLowerCase() === 'male'"
-                        src="./../../../../assets/images/meeting/male-student.png"
+                        src="assets/images/meeting/male-student.png"
                         style="max-height: 75px; max-width: 75px; position: absolute; bottom: 55%;"
                         alt srcset>
                     </ng-container>
@@ -256,11 +256,11 @@
                       <img [id]="'vacant_seat_'+i"
                         [class]="return_BottomStyleBasedOnSeatNo(user.SeatNo)"
                         *ngIf="user.SeatNo && user.Gender.toLowerCase() === 'female'"
-                        src="./../../../../assets/images/meeting/male-student.png"
+                        src="assets/images/meeting/male-student.png"
                         style="max-height: 75px; max-width: 75px; position: absolute; bottom: 55%;"
                         alt srcset>
                     </ng-container>
-                    <img src="./../../../../assets/images/meeting/table.png"
+                    <img src="assets/images/meeting/table.png"
                       style="max-height: 150px; max-width: 350px; position: absolute; bottom: 0;"
                       alt srcset>
                     <span
@@ -285,14 +285,14 @@
                   <div
                     class="d-flex justify-content-center align-content-center">
                     <img
-                      src="./../../../../assets/images/meeting/wooden-chair.png"
+                      src="assets/images/meeting/wooden-chair.png"
                       style="max-height: 100px; max-width: 100px; position: absolute; bottom: 30%;"
                       alt srcset>
                     <img
-                      src="./../../../../assets/images/meeting/female-student.png"
+                      src="assets/images/meeting/female-student.png"
                       style="max-height: 75px; max-width: 75px; position: absolute; bottom: 55%;"
                       alt srcset>
-                    <img src="./../../../../assets/images/meeting/table.png"
+                    <img src="assets/images/meeting/table.png"
                       style="max-height: 150px; max-width: 350px; position: absolute; bottom: 0;"
                       alt srcset>
                     <span

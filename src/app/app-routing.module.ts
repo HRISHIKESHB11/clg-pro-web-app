@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './@core/components/login/login.component';
 import { DashboardComponent } from './@core/components/dashboard/dashboard.component';
 import { MeetingsComponent } from './@core/components/meetings/meetings.component';
+import { ClassRoomComponent } from './@core/components/class-room/class-room.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,9 @@ const routes: Routes = [
   },
   {
     path: 'meeting', component:MeetingsComponent,
+  },
+  {
+    path: 'class-room', component:ClassRoomComponent,
   }
 ];
 

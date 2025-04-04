@@ -9,13 +9,11 @@ video {
   background-color: black;
 }
 
-
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer !important;
 }
 
-
-.class-table-container{
+.class-table-container {
   min-height: 200px;
   max-height: 200px;
   min-width: 24%;
@@ -30,3 +28,32 @@ video {
 .hover-effect-label {
   display: none !important;
 }
+
+.movable-box {
+  // position: absolute;
+  // left: 50%;
+  // transform: translateX(-50%);
+  // width: 100px;
+  // height: 100px;
+  // background-color: blue;
+  // color: white;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // border-radius: 10px;
+}
+
+.seated-person {
+  max-height: 75px;
+  max-width: 75px;
+  position: absolute;
+  bottom: 60% !important;
+}
+
+
+// .vacant-seat {
+//   max-height: 75px;
+//   max-width: 75px;
+//   position: absolute;
+//   bottom: 20%;
+// }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MeetingsService } from '../../services/meetings.service';
 import { NewMeetDetail } from 'src/app/shared/modals/newMeetDetail';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,6 +13,32 @@ import { SeatDetail } from 'src/app/shared/modals/seatDetail';
 export class MeetingsComponent implements OnInit, OnChanges {
   @ViewChild('videoElement', { static: false }) videoElement!: ElementRef;
   stream!: MediaStream;
+  @HostListener('window:keydown', ['$event'])
+  onKeyPress(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'Enter':
+        this.setUserInVacantSeat()
+        break;
+      case 'ArrowDown':
+        break;
+      case 'ArrowLeft':
+        this.filterPreviousVacantSeat()
+        break;
+      case 'ArrowRight':
+        this.filterNextVacantSeat();
+        break;
+      default:
+      // console.log('');
+    }
+  }
+
+  // @HostListener('window:keydown', ['$event'])
+  // handleKeyDown(event: KeyboardEvent) {
+  //   if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+  //     this.previousBottom = '20%';
+  //     this.currentBottom = '60%';
+  //   }
+  // }
 
   constructor(
     private _meetingServices: MeetingsService,
@@ -47,7 +73,102 @@ export class MeetingsComponent implements OnInit, OnChanges {
     this.meetingDetails = this._meetingServices.getMeetDetailsByMeetCode(_meetId);
     if (this.meetingDetails.MeetCode) {
       this.loadUserList();
-      this.generateSeatListByMeetSeatQuantity();
+    }
+  }
+
+  setUserInVacantSeat() {
+    debugger
+    // console.log('Clicked Key =>', _key);
+    this.seatList[Number(this.currentBottomEleIndex)] = this.selectedUserDetail;
+    this.seatList[Number(this.currentBottomEleIndex)].SeatNo = this.currentBottomEleIndex;
+    // this.seatList[Number(this.currentBottomEleIndex)].Gender = this.currentBottomEleIndex;
+    setTimeout(() => {
+      let _ele = document.getElementById('vacant_seat_' + this.currentBottomEleIndex)
+      if (_ele) {
+        _ele.style.bottom = '65%';
+      }
+      this.approveMemberRequest(this.selectedUserDetail);
+    }, 500);
+  }
+
+  filterNextVacantSeat() {
+    debugger
+    let _index: string = ''
+    if (this.currentBottomEleIndex) {
+      if (Number(this.currentBottomEleIndex) === this.seatList.length - 1) {
+        for (let i = 0; i < this.seatList.length; i++) {
+          if (!this.seatList[i].SeatNo && i !== Number(this.currentBottomEleIndex)) {
+            _index = i.toString();
+            // this.currentBottomEleIndex = _index;
+            break;
+          }
+        }
+        // _index = '0'
+      } else {
+        for (let i = Number(this.currentBottomEleIndex); i < this.seatList.length; i++) {
+          if (!this.seatList[i].SeatNo && i !== Number(this.currentBottomEleIndex)) {
+            _index = i.toString();
+            // this.currentBottomEleIndex = _index;
+            break;
+          }
+        }
+      }
+      let _ele = document.getElementById('vacant_seat_' + _index)
+      if (_ele) {
+        _ele.style.bottom = '65%';
+      }
+      // for(let i = 0; i < this.seatList.length; i++){
+      // if(i !== Number(this.currentBottomEleIndex)){
+      let _ele1 = document.getElementById('vacant_seat_' + this.currentBottomEleIndex);
+      if (_ele1) {
+        _ele1.style.bottom = '20%';
+      }
+
+      this.currentBottomEleIndex = _index
+      // }
+      // }
+    }
+  }
+
+  filterPreviousVacantSeat() {
+    debugger
+    let _index: string = ''
+    if (this.currentBottomEleIndex) {
+      // if (Number(this.currentBottomEleIndex) === 0) {
+      // for (let i = this.seatList.length - 1; i < this.seatList.length; i--) {
+      //   if (!this.seatList[i].SeatNo && i !== Number(this.currentBottomEleIndex)) {
+      //     _index = i.toString();
+      //     // this.currentBottomEleIndex = _index;
+      //     break;
+      //   }
+      // }
+      // _index = (this.seatList.length - 1).toString()
+      // } else {
+      for (let i = Number(this.currentBottomEleIndex); i < this.seatList.length; i--) {
+        if (!this.seatList[i].SeatNo && i !== Number(this.currentBottomEleIndex)) {
+          _index = i.toString();
+          // this.currentBottomEleIndex = _index;
+          break;
+        }
+        if (i === 0 && this.seatList[i].SeatNo) {
+          i = this.seatList.length;
+        }
+      }
+      // }
+      let _ele = document.getElementById('vacant_seat_' + _index)
+      if (_ele) {
+        _ele.style.bottom = '65%';
+      }
+      // for(let i = 0; i < this.seatList.length; i++){
+      // if(i !== Number(this.currentBottomEleIndex)){
+      let _ele1 = document.getElementById('vacant_seat_' + this.currentBottomEleIndex);
+      if (_ele1) {
+        _ele1.style.bottom = '20%';
+      }
+
+      this.currentBottomEleIndex = _index
+      // }
+      // }
     }
   }
 
@@ -60,7 +181,11 @@ export class MeetingsComponent implements OnInit, OnChanges {
         this.seatList.push(_seat);
       }
     }
+    this.settle_UserOnSeats();
+
   }
+
+  showCandidateList: boolean = false;
 
   userList: UserDetail[] = [];
   _userList: UserDetail[] = [];
@@ -107,7 +232,9 @@ export class MeetingsComponent implements OnInit, OnChanges {
   showRequestList: boolean = false;
   updateUserList() {
     this.userList = this._userList;
-    this.requestUserList = this._requestUserList
+    this.requestUserList = this._requestUserList;
+    this.generateSeatListByMeetSeatQuantity();
+
   }
 
   leaveMeeting() {
@@ -164,6 +291,104 @@ export class MeetingsComponent implements OnInit, OnChanges {
     }
   }
 
+  isSelectectingSeatApprovingPerson: boolean = false;
+  selectedUserDetail: SeatDetail = new SeatDetail();
+  setSeelctedUserDetail(_user: UserDetail) {
+    debugger
+    let _count = this.count_OccupiedSeats();
+    if (Number(this.meetingDetails.MeetCandidateQuantity) !== _count) {
+      this.isSelectectingSeatApprovingPerson = true;
+      this.selectedUserDetail = new SeatDetail();
+      this.selectedUserDetail = _user;
+      this.showRequestList = false;
+      let _index = this.filterWhichSeatIsVacant() || '';
+      setTimeout(() => {
+        debugger
+        if (_index) {
+          let _ele = document.getElementById('vacant_seat_' + _index)
+          if (_ele) {
+            _ele.style.bottom = '65%';
+          }
+          debugger
+        }
+      }, 500);
+    } else {
+      alert('There are no available seats right now...');
+    }
+  }
+
+  count_OccupiedSeats() {
+    debugger
+    let _count: number = 0;
+
+    this.userList.forEach(
+      (z: SeatDetail) => {
+        if (z.SeatNo) {
+          _count++
+        }
+      }
+    )
+    debugger
+    return _count;
+  }
+
+  settle_UserOnSeats() {
+
+    debugger
+
+    let _index = 0;
+
+    for (let i = 0; i < this.seatList.length; i++) {
+      if (this.seatList.length >= this.userList.length) {
+        if (i < this.userList.length) {
+          this.seatList[i].ConatctNo = this.userList[i].ConatctNo || '';
+          this.seatList[i].FirstName = this.userList[i].FirstName || '';
+          this.seatList[i].LastName = this.userList[i].LastName || '';
+          this.seatList[i].Gender = this.userList[i].Gender || '';
+          this.seatList[i].MeetCode = this.userList[i].MeetCode || '';
+          this.seatList[i].MeetJoiningDate = this.userList[i].MeetJoiningDate || '';
+          this.seatList[i].SeatNo = i.toString();
+        }
+      }
+    }
+    // this.seatList.map((z: SeatDetail) => {
+    //   debugger
+    //   z = this.userList[_index];
+    //   z.SeatNo = _index.toString();
+    //   _index++;
+    // })
+    console.log("Settled Seat List =>", this.seatList);
+
+    this.isSelectectingSeatApprovingPerson = true;
+  }
+
+  remove_UserFromSeat(_index: number) {
+    this.seatList[_index] = new SeatDetail();
+  }
+
+  return_BottomStyleBasedOnSeatNo(_seatNo: string) {
+    debugger
+    if (_seatNo) {
+      return 'movable-box seated-person'
+    } else {
+      return 'movable-box'
+    }
+  }
+
+  filterWhichSeatIsVacant() {
+    let _index: string = '';
+    if (this.seatList.length) {
+      for (let i = 0; i < this.seatList.length; i++) {
+        if (!this.seatList[i].SeatNo) {
+          _index = i.toString();
+          this.currentBottomEleIndex = _index;
+          break;
+        }
+      }
+    }
+    return _index;
+  }
+
   approveMemberRequest(_user: UserDetail) {
     debugger
     let _key = 'user_' + _user.ConatctNo + '_' + _user.MeetCode + '_' + 'NewRequest';
@@ -172,6 +397,7 @@ export class MeetingsComponent implements OnInit, OnChanges {
       localStorage.removeItem(_key);
       _key = 'user_' + _user.ConatctNo + '_' + _user.MeetCode
       localStorage.setItem(_key, _userDetail);
+      this.selectedUserDetail = new UserDetail();
       this.loadUserList();
     }
   }
@@ -191,6 +417,11 @@ export class MeetingsComponent implements OnInit, OnChanges {
   isMicOn: boolean = false;
   isVideoOn: boolean = false;
   isScreenShredOn: boolean = false;
+
+  // currentBottom: string = '60%';
+  currentBottomEleIndex: string = '';
+  // previousBottom: string = '20%';
+
 
 
 }

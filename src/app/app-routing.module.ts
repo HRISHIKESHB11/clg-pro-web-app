@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './@core/components/login/login.component';
 import { DashboardComponent } from './@core/components/dashboard/dashboard.component';
 import { MeetingsComponent } from './@core/components/meetings/meetings.component';
-import { ClassRoomComponent } from './@core/components/class-room/class-room.component';
+import { ClassroomComponent } from './@core/components/class-room/class-room.component';
+import { CabinMeetingComponent } from './@core/components/cabin-meeting/cabin-meeting.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,10 @@ const routes: Routes = [
     path: 'meeting', component:MeetingsComponent,
   },
   {
-    path: 'class-room', component:ClassRoomComponent,
+    path: 'class-room', component:ClassroomComponent,
+  },
+  {
+    path: 'cabin-meeting', component:CabinMeetingComponent,
   }
 ];
 

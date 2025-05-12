@@ -23,9 +23,9 @@ export class DashboardComponent implements OnInit {
     this._actRoute.queryParams.subscribe(
       (res: any) => {
         console.log("QueryParam=>", res);
-        if(res){
-          if(res['redirect']){
-            if(res['redirect'] === 'DirectJoinMeet'){
+        if (res) {
+          if (res['redirect']) {
+            if (res['redirect'] === 'DirectJoinMeet') {
               this.isRedirectedDirectJoinMeet = true;
             }
           }
@@ -109,7 +109,12 @@ export class DashboardComponent implements OnInit {
 
     if (this.verifyMeetTimeDate(this.joiningUserDetail.MeetCode) && this.checkIsMeet_Exist(this.joiningUserDetail.MeetCode) && this._meetingServices.checkUserCount_InMeeting(this.joiningUserDetail.MeetCode)) {
       this._meetingServices.joinMeet(this.joiningUserDetail, isHostJoining || false);
-      this._router.navigate(['meeting'], { queryParams: { meetId: this.joiningUserDetail.MeetCode, userId: this.joiningUserDetail.ConatctNo } })
+      if (this.creatingMeetType.toLowerCase().includes('class') || this.creatingMeetType.toLowerCase().includes('class')) {
+        this._router.navigate(['class-room'], { queryParams: { meetId: this.joiningUserDetail.MeetCode, userId: this.joiningUserDetail.ConatctNo } })
+      }
+      if (this.creatingMeetType.toLowerCase().includes('office') || this.creatingMeetType.toLowerCase().includes('office')) {
+        this._router.navigate(['cabin-meeting'], { queryParams: { meetId: this.joiningUserDetail.MeetCode, userId: this.joiningUserDetail.ConatctNo } })
+      }
     } else {
       alert('Please check meeting date time!');
     }
@@ -182,7 +187,12 @@ export class DashboardComponent implements OnInit {
         this.joiningUserDetail.LastName = _user.LastName;
         this.joiningUserDetail.MeetCode = this.newMeetGeneratedCode;
         this._meetingServices.joinMeet(this.joiningUserDetail, true);
-        this._router.navigate(['meeting'], { queryParams: { meetId: this.newMeetGeneratedCode, userId: this.joiningUserDetail.ConatctNo } })
+        if (this.creatingMeetType.toLowerCase().includes('class') || this.creatingMeetType.toLowerCase().includes('class')) {
+          this._router.navigate(['class-room'], { queryParams: { meetId: this.joiningUserDetail.MeetCode, userId: this.joiningUserDetail.ConatctNo } })
+        }
+        if (this.creatingMeetType.toLowerCase().includes('office') || this.creatingMeetType.toLowerCase().includes('office')) {
+          this._router.navigate(['cabin-meeting'], { queryParams: { meetId: this.joiningUserDetail.MeetCode, userId: this.joiningUserDetail.ConatctNo } })
+        }
       }
       else {
         alert('Please try agin after few min..!');
